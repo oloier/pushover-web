@@ -15,14 +15,14 @@ head
 	//- 					a.nav-link(href='/login') Login
 body
 	main.container-fluid.bootstrap-wrapper 
-		form.form(action="/post")
+		form.form(action="/up", enctype="multipart/form-data")
 			section.form-group.row
 				section.col-sm-8
 					input.title.form-control(placeholder="title (optional)")
-					textarea.message.form-control(placeholder="text, message, URL, etc.")
+					textarea.message.form-control(required, placeholder="text, message, URL, etc.")
 					div.url
 				section.col-sm-4.drop-area
-					input.file.form-control#files(type="file", accept="image/*")
+					input.file.form-control#files(type="file", name="attachment", accept="image/*")
 					label.btn.upload(for="files") Select image attachment
 					section.thumbnail
 					p.instructions Drag and drop files here

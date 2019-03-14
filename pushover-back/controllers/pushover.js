@@ -55,7 +55,8 @@ function requestStringToMultiPart(requestString, boundary, imgObj) {
 		else {
 			reqArray.push("Content-Type: application/octet-stream")
 		}
-		reqArray.push("").push("")
+		reqArray.push("")
+		reqArray.push("")
 	}
 	else {
 		reqArray.splice(-1, 1)

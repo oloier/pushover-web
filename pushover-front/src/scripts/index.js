@@ -1,32 +1,54 @@
 import "../styles/style.sass"
-import "bootstrap"
 
 // ************************ form submit ******************* //
-
-
-document.querySelector(".form").addEventListener("submit", (e) => {
+document.querySelector(".form").addEventListener("submit", async (e) => {
 	e.preventDefault()
-	// alert("hi")
-	// sendPush()
 	const data = {
 		title: document.querySelector(".title").value,
 		message: document.querySelector(".message").value,
 		url: document.querySelector(".url").innerText,
-		file: document.querySelector(".file").value,
+		attachment: document.querySelector(".file").value,
 	}
-	PushIt(data)
+
+	const upload = await saveAttachment()
+	if (upload.ok) {
+		const push = await pushIt(data)
+		if (push.ok) {
+			// alert
+		}
+	}
 })
 
-function PushIt(data = {}) {
-	const XHR = new XMLHttpRequest()
-	XHR.addEventListener("load", (e) => console.log(e.responseText))
-	XHR.open("POST", "http://localhost:3000/")
-	XHR.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
-	XHR.send(JSON.stringify(data))
+const saveAttachment = () => {
+	const fileInput = document.querySelector(".file")
+	const formData = new FormData()
+	formData.append(fileInput.name, fileInput.files[0])
+	console.log(fileInput.files[0])
+	const opts = {
+		method: "POST",
+		body: formData,
+	}
+	return fetch("http://localhost:3000/upload", opts)
 }
 
+const pushIt = (data) => {
+	const opts = {
+		method: "POST",
+		headers: { "Content-Type": "application/json;charset=UTF-8" },
+		body: JSON.stringify(data),
+	}
+	return fetch("http://localhost:3000/", opts)
+}
+// function PushIt(data = {}) {
+// 	const xhr = new XMLHttpRequest()
+// 	xhr.addEventListener("load", (e) => console.log(e.responseText))
+// 	xhr.open("POST", "http://localhost:3000/")
+// 	xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+// 	xhr.send(JSON.stringify(data))
+// }
+
 // ************************ url listener ****************** //
-function foundUrls(text) {
+const foundUrls = (text) => {
 	const urlRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gim
 
 	const urls = text.match(urlRegex) || []
@@ -42,8 +64,8 @@ function foundUrls(text) {
 }
 
 // grab URLs on updates to textarea
-const message = document.querySelector(".message")
-;["keyup", "change"].forEach((eventName) => {
+const message = document.querySelector(".message");
+["keyup", "change"].forEach((eventName) => {
 	message.addEventListener(eventName, () => {
 		const urlField = document.querySelector(".url")
 		const urls = foundUrls(message.value)
@@ -56,56 +78,19 @@ const message = document.querySelector(".message")
 	}, false)
 })
 
-// ************************ drag and drop ***************** //
-const html = document.querySelector("html")
-const highlight = () => html.classList.add("highlight")
-const unhighlight = () => html.classList.remove("highlight")
-
-function preventDefaults(e) {
-	e.preventDefault()
-	e.stopPropagation()
-}
-// prevent default drag behaviors
-["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-	html.addEventListener(eventName, preventDefaults, false)   
-	document.body.addEventListener(eventName, preventDefaults, false)
-});
-
-// highlight drop area when item is dragged over it
-["dragenter", "dragover"].forEach((eventName) => {
-	html.addEventListener(eventName, highlight, false)
-});
-
-[/* "dragleave",  */"drop"].forEach((eventName) => {
-	html.addEventListener(eventName, unhighlight, false)
-})
-
-// handle dropped files
-document.querySelector(".drop-area").addEventListener("drop", handleDrop, false)
-
-
-function handleDrop(e) {
-	const dt = e.dataTransfer
-	const file = dt.files
-	unhighlight()
-	previewFile(file)
-}
-
-function previewFile(file) {
+// file upload preview
+const fileInput = document.querySelector(".file")
+fileInput.onchange = () => {
 	const reader = new FileReader()
-	const fileInput = document.querySelector(".file")
-	file = file["0"]
-	console.log(file)
-	fileInput.value = file
-	reader.readAsDataURL(file)
-	reader.onloadend = function() {
+	reader.onload = (e) => {
 		const img = document.createElement("img")
-		img.src = reader.result
+		img.src = e.target.result
 		const thumbnail = document.querySelector(".thumbnail")
-		const thumbs = thumbnail.getElementsByTagName("img")
-		if (thumbs.length > 0) {
-			thumbnail.removeChild(thumbs[0])
+		const thumb = thumbnail.getElementsByTagName("img")
+		if (thumb.length > 0) {
+			thumbnail.removeChild(thumb[0])
 		}
 		thumbnail.appendChild(img)
 	}
+	reader.readAsDataURL(fileInput.files[0])
 }
