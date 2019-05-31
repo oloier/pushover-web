@@ -24,7 +24,7 @@ const pushPushover = (data) => {
 
 const saveAttachmentInput = () => {
 	const formData = new FormData()
-	formData.append(attachmentInput.name, attachmentInput.files[0])
+	formData.append(attachmentInput.name, attachmentInput.files[0].replace("C:\\fakepath\\", ""))
 	const opts = {
 		method: "POST",
 		body: formData,
