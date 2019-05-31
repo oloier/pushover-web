@@ -7,6 +7,7 @@ const titleInput = document.querySelector(".title")
 const messageInput = document.querySelector(".message")
 const urlInput = document.querySelector(".url")
 const attachmentInput = document.querySelector(".file")
+const priorityInput = document.querySelector(".priority")
 const preview = document.querySelector(".preview")
 const previewTitle = document.querySelector(".preview-title")
 const previewMessage = document.querySelector(".preview-message")
@@ -49,6 +50,7 @@ document.querySelector(".form").addEventListener("submit", async (e) => {
 		message: messageInput.value,
 		url: urlInput.innerText,
 		attachment: attachmentInput.value.replace("C:\\fakepath\\", ""),
+		priority: priorityInput.value,
 	}
 
 	const upload = await saveAttachmentInput()

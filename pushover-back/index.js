@@ -46,7 +46,7 @@ app.post("/", (req, res) => {
 	const title = req.body.title
 	const url = req.body.url
 	const file = req.body.attachment ? `uploads/${path.basename(req.body.attachment)}` : null
-	console.log(`Filename: ${file}`)
+	const priority = req.body.priority
 	
 	const push = new pushover({
 		user: "uJRHDRwW9oY7Y4HV8zuoxk7HXRcTk2",
@@ -62,9 +62,9 @@ app.post("/", (req, res) => {
 		title,
 		url,
 		file,
+		priority,
 		sound: "intermission",
 		device: "drell",
-		priority: 0,
 		// priority: 2,
 		// retry: 60,
 		// expire: 500,

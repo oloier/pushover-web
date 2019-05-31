@@ -28,11 +28,11 @@ body
 				input.title.form-control(placeholder="title (optional)", maxlength=250)
 				textarea.message.form-control(required, rows=2, maxlength=1024, placeholder="text, message, URL, etc.")
 				div.url
-				select.form-control
+				select.priority.form-control
 					option(value="0", label="select message priority")
 					option(value="-2", label="lowest, no banner or audio")
 					option(value="-1", label="low, silent banner")
-					option(value="0", label="normal, banner with audio")
+					option(value="0", label="normal, banner with audio", selected)
 					option(value="1", label="high, bypass quiet hours")
 					option(value="2", label="highest, bypass quiet + require action")
 			section.col-sm-4.attachment
