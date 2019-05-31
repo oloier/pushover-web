@@ -11,6 +11,7 @@ const preview = document.querySelector(".preview")
 const previewTitle = document.querySelector(".preview-title")
 const previewMessage = document.querySelector(".preview-message")
 const thumbnail = document.querySelector(".thumbnail")
+const hostURL = "https://hostname-set.com/push/"
 
 const pushPushover = (data) => {
 	const opts = {
@@ -18,7 +19,7 @@ const pushPushover = (data) => {
 		headers: { "Content-Type": "application/json;charset=UTF-8" },
 		body: JSON.stringify(data),
 	}
-	return fetch("http://localhost:3000/", opts)
+	return fetch(hostURL, opts)
 }
 
 const saveAttachmentInput = () => {
@@ -28,7 +29,7 @@ const saveAttachmentInput = () => {
 		method: "POST",
 		body: formData,
 	}
-	return fetch("http://localhost:3000/upload", opts)
+	return fetch(`${hostURL}/upload`, opts)
 }
 
 const updatePreview = () => {
