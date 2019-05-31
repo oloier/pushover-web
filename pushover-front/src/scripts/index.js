@@ -11,7 +11,7 @@ const preview = document.querySelector(".preview")
 const previewTitle = document.querySelector(".preview-title")
 const previewMessage = document.querySelector(".preview-message")
 const thumbnail = document.querySelector(".thumbnail")
-const hostURL = "https://hostname-set.com/push/"
+const hostURL = "https://oloier.com/push/"
 
 const pushPushover = (data) => {
 	const opts = {
@@ -24,12 +24,12 @@ const pushPushover = (data) => {
 
 const saveAttachmentInput = () => {
 	const formData = new FormData()
-	formData.append(attachmentInput.name, attachmentInput.files[0].replace("C:\\fakepath\\", ""))
+	formData.append(attachmentInput.name.replace("C:\\fakepath\\", ""), attachmentInput.files[0])
 	const opts = {
 		method: "POST",
 		body: formData,
 	}
-	return fetch(`${hostURL}/upload`, opts)
+	return fetch(`${hostURL}upload`, opts)
 }
 
 const updatePreview = () => {
