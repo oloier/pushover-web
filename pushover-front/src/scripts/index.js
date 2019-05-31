@@ -16,7 +16,7 @@ const hostURL = "https://oloier.com/push/"
 const pushPushover = (data) => {
 	const opts = {
 		method: "POST",
-		headers: { "Content-Type": "application/json;charset=UTF-8" },
+		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
 	}
 	return fetch(hostURL, opts)
