@@ -45,8 +45,9 @@ app.post("/", (req, res) => {
 	const message = req.body.message
 	const title = req.body.title
 	const url = req.body.url
-	const file = req.body.attachment ? `uploads/${path.basename(req.body.attachment).replace("C:\\fakepath\\", "")}` : null
-
+	const file = req.body.attachment ? `uploads/${path.basename(req.body.attachment)}` : null
+	console.log(`Filename: ${file}`)
+	
 	const push = new pushover({
 		user: "uJRHDRwW9oY7Y4HV8zuoxk7HXRcTk2",
 		token: "am1cbmv6x4kpirncym48pf1w63tb3w",

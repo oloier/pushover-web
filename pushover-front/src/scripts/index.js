@@ -24,7 +24,7 @@ const pushPushover = (data) => {
 
 const saveAttachmentInput = () => {
 	const formData = new FormData()
-	formData.append(attachmentInput.name.replace("C:\\fakepath\\", ""), attachmentInput.files[0])
+	formData.append(attachmentInput.name, attachmentInput.files[0])
 	const opts = {
 		method: "POST",
 		body: formData,
@@ -48,7 +48,7 @@ document.querySelector(".form").addEventListener("submit", async (e) => {
 		title: titleInput.value,
 		message: messageInput.value,
 		url: urlInput.innerText,
-		attachment: attachmentInput.value,
+		attachment: attachmentInput.value.replace("C:\\fakepath\\", ""),
 	}
 
 	const upload = await saveAttachmentInput()
