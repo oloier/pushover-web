@@ -1,14 +1,14 @@
 {
   "name": "webpack-starter",
   "version": "1.0.0",
-  "description": "A light foundation for your next frontend project based on webpack.",
+  "description": "A front-end web based pushover client for custom push notifications via Pushover's service.",
   "scripts": {
     "build": "webpack --config webpack/webpack.config.prod.js  --colors",
 	"start": "webpack-dev-server --open --config webpack/webpack.config.dev.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wbkd/webpack-starter.git"
+    "url": "git+https://gitlab.com/oloier/node-pushover.git"
   },
   "keywords": [
     "webpack",
@@ -18,10 +18,10 @@
     "javascript",
     "webdev"
   ],
-  "author": "webkid.io",
+  "author": "https://scottoloier.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wbkd/webpack-starter/issues"
+    "url": "https://gitlab.com/oloier/node-pushover"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
