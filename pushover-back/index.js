@@ -14,10 +14,17 @@ app.set("json spaces", 2)
 app.use(cors())
 
 // configure multer filenaming and filtering
+const fileExts = {
+	"image/png": ".png",
+	"image/jpeg": ".jpeg",
+	"image/jpg": ".jpg",
+}
 const upload = multer({
 	storage: multer.diskStorage({
 		destination: "./uploads",
-		filename: (req, file, cb) => cb(null, file.originalname),
+		filename: (req, file, cb) => {
+			cb(null, `${file.fieldname}-${Date.now()}${fileExts[file.mimetype]}`)
+		},
 	}),
 	fileFilter: (req, file, cb) => {
 		const filetypes = /jpeg|jpg|png/
@@ -54,27 +61,30 @@ app.post("/", (req, res) => {
 		// debug: true,
 		onError: (err) => {
 			console.log(err)
-		},
+		},     
 	})
-
-	push.send({
+	const pushPackage = {
 		message,
 		title,
 		url,
 		file,
 		priority,
 		sound: "intermission",
-		device: "drell",
-		// priority: 2,
-		// retry: 60,
-		// expire: 500,
-	},
-	(err, response) => {
-		if (err) {
-			throw new Error(err)
-		}
-		res.json(response)
-	})
+		device: "drell", // can we dynamically load device names?
+	}
+	// make dynamic? Maybe not worth it.
+	if (pushPackage.priority === 2) {
+		pushPackage.retry = 120
+		pushPackage.expire = 500
+	}
+
+	push.send(pushPackage,
+		(err, response) => {
+			if (err) {
+				throw new Error(err)
+			}
+			res.json(response)
+		})
 })
 
 // global error handler middleware, receives all Error exception
