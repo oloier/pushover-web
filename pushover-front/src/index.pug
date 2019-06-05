@@ -35,6 +35,10 @@ body
 					option(value="0", label="normal, banner with audio")
 					option(value="1", label="high, bypass quiet hours")
 					option(value="2", label="highest, bypass quiet + require action")
+
+				select.priority.form-control
+					option(value="0", label="select message priority")
+
 			section.col-sm-4.attachment
 				input.file.hidden#files(type="file", name="attachment", accept="image/*")
 				label.btn.upload.center(for="files") 

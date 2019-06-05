@@ -58,9 +58,11 @@ app.post("/", (req, res) => {
 	const push = new pushover({
 		user: "uJRHDRwW9oY7Y4HV8zuoxk7HXRcTk2",
 		token: "am1cbmv6x4kpirncym48pf1w63tb3w",
-		// debug: true,
+		debug: true,
 		onError: (err) => {
-			console.log(err)
+			err.code = 500
+			throw new Error(err)
+			// console.log(err)
 		},     
 	})
 	const pushPackage = {
@@ -81,6 +83,7 @@ app.post("/", (req, res) => {
 	push.send(pushPackage,
 		(err, response) => {
 			if (err) {
+				err.code = 500
 				throw new Error(err)
 			}
 			res.json(response)
