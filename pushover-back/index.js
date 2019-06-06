@@ -53,6 +53,9 @@ app.post("/", upload.single("attachment"), (req, res) => {
 	const message = req.body.message
 	const title = req.body.title
 	const url = req.body.url
+	console.log(req.file)
+	console.log(req.body)
+
 	const file = req.file.filename ? `uploads/${req.file.filename}s` : null
 	const priority = parseInt(req.body.priority)
 	
