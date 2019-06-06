@@ -19,12 +19,17 @@ const fileExts = {
 	"image/jpeg": ".jpeg",
 	"image/jpg": ".jpg",
 }
+
 const upload = multer({
+	// storage: multer.diskStorage({
+	// 	destination: "./uploads",
+	// 	filename: (req, file, cb) => {
+	// 		cb(null, `${file.fieldname}-${Date.now()}${fileExts[file.mimetype]}`)
+	// 	},
+	// }),
 	storage: multer.diskStorage({
 		destination: "./uploads",
-		filename: (req, file, cb) => {
-			cb(null, `${file.fieldname}-${Date.now()}${fileExts[file.mimetype]}`)
-		},
+		filename: (req, file, cb) => cb(null, file.originalname),
 	}),
 	fileFilter: (req, file, cb) => {
 		const filetypes = /jpeg|jpg|png/
