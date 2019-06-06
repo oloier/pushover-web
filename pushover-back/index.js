@@ -21,15 +21,11 @@ const fileExts = {
 }
 
 const upload = multer({
-	// storage: multer.diskStorage({
-	// 	destination: "./uploads",
-	// 	filename: (req, file, cb) => {
-	// 		cb(null, `${file.fieldname}-${Date.now()}${fileExts[file.mimetype]}`)
-	// 	},
-	// }),
 	storage: multer.diskStorage({
 		destination: "./uploads",
-		filename: (req, file, cb) => cb(null, file.originalname),
+		filename: (req, file, cb) => {
+			cb(null, `${file.fieldname}-${Date.now()}${fileExts[file.mimetype]}`)
+		},
 	}),
 	fileFilter: (req, file, cb) => {
 		const filetypes = /jpeg|jpg|png/
@@ -53,11 +49,11 @@ app.post("/upload", upload.single("attachment"), (req, res) => {
 //
 // primary POST endpoint for form data to send pushover notifications
 //
-app.post("/", (req, res) => {
+app.post("/", upload.single("attachment"), (req, res) => {
 	const message = req.body.message
 	const title = req.body.title
 	const url = req.body.url
-	const file = req.body.attachment ? `uploads/${path.basename(req.body.attachment)}` : null
+	const file = req.file.filename ? `uploads/${req.file.filename}s` : null
 	const priority = parseInt(req.body.priority)
 	
 	const push = new pushover({
@@ -67,7 +63,6 @@ app.post("/", (req, res) => {
 		onError: (err) => {
 			err.code = 500
 			throw new Error(err)
-			// console.log(err)
 		},     
 	})
 	const pushPackage = {

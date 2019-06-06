@@ -23,7 +23,7 @@ body
 				h5.preview-title
 				p.preview-message
 			div.preview-attachment
-		form.form.row(action="")
+		form.form.row(action="", enctype="multipart/form-data")
 			section.col-sm-8
 				input.title.form-control(placeholder="title (optional)", maxlength=250)
 				textarea.message.form-control(required, rows=2, maxlength=1024, placeholder="text, message, URL, etc.")

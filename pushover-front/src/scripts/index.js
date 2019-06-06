@@ -17,21 +17,21 @@ const hostURL = "https://oloier.com/push/"
 const pushPushover = (data) => {
 	const opts = {
 		method: "POST",
-		headers: { "Content-Type": "application/json" },
+		// headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
 	}
 	return fetch(hostURL, opts)
 }
 
-const saveAttachmentInput = () => {
-	const formData = new FormData()
-	formData.append(attachmentInput.name, attachmentInput.files[0])
-	const opts = {
-		method: "POST",
-		body: formData,
-	}
-	return fetch(`${hostURL}upload`, opts)
-}
+// const saveAttachmentInput = () => {
+// 	const formData = new FormData()
+// 	formData.append(attachmentInput.name, attachmentInput.files[0])
+// 	const opts = {
+// 		method: "POST",
+// 		body: formData,
+// 	}
+// 	return fetch(`${hostURL}upload`, opts)
+// }
 
 const updatePreview = () => {
 
@@ -49,20 +49,21 @@ document.querySelector(".form").addEventListener("submit", async (e) => {
 		title: titleInput.value,
 		message: messageInput.value,
 		url: urlInput.innerText,
-		attachment: attachmentInput.value.replace("C:\\fakepath\\", ""),
+		attachment: attachmentInput.files[0],
+		// attachment: attachmentInput.value.replace("C:\\fakepath\\", ""),
 		priority: priorityInput.value,
 	}
 
-	const upload = await saveAttachmentInput()
-	if (upload.ok) {
-		const push = await pushPushover(data)
-		if (push.ok) {
-			alert("success")
-		}
-		else {
-			alert("failed")
-		}
+	// const upload = await saveAttachmentInput()
+	// if (upload.ok) {
+	const push = await pushPushover(data)
+	if (push.ok) {
+		alert("success")
 	}
+	else {
+		alert("failed")
+	}
+	// }
 })
 
 //
