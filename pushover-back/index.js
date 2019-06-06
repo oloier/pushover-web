@@ -58,7 +58,7 @@ app.post("/", (req, res) => {
 	const title = req.body.title
 	const url = req.body.url
 	const file = req.body.attachment ? `uploads/${path.basename(req.body.attachment)}` : null
-	const priority = req.body.priority
+	const priority = parseInt(req.body.priority)
 	
 	const push = new pushover({
 		user: "uJRHDRwW9oY7Y4HV8zuoxk7HXRcTk2",
