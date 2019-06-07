@@ -61,8 +61,8 @@ app.post("/", (req, res) => {
 	const priority = parseInt(req.body.priority)
 	
 	const push = new pushover({
-		user: "uJRHDRwW9oY7Y4HV8zuoxk7HXRcTk2",
-		token: "am1cbmv6x4kpirncym48pf1w63tb3w",
+		user: process.env.USER_KEY,
+		token: process.env.API_KEY,
 		debug: true,
 		onError: (err) => {
 			err.code = 500
