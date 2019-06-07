@@ -57,7 +57,7 @@ app.post("/", (req, res) => {
 	const message = req.body.message
 	const title = req.body.title
 	const url = req.body.url
-	const sound = req.body.priority
+	const sound = req.body.sound
 	const file = req.body.attachment ? `uploads/${path.basename(req.body.attachment)}` : null
 	const priority = parseInt(req.body.priority)
 	
