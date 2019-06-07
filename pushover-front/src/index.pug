@@ -36,8 +36,30 @@ body
 					option(value="1", label="high, bypass quiet hours")
 					option(value="2", label="highest, bypass quiet + require action")
 
-				select.priority.form-control
-					option(value="0", label="select message priority")
+				select.sound.form-control
+					option(value="intermission", label="select alert sound")
+					option(value="pushover", label="Pushover (default)")
+					option(value="bike", label="Bike")
+					option(value="bugle", label="Bugle")
+					option(value="cashregister", label="Cash Register")
+					option(value="classical", label="Classical")
+					option(value="cosmic", label="Cosmic")
+					option(value="falling", label="Falling")
+					option(value="gamelan", label="Gamelan")
+					option(value="incoming", label="Incoming")
+					option(value="intermission", label="Intermission")
+					option(value="magic", label="Magic")
+					option(value="mechanical", label="Mechanical")
+					option(value="pianobar", label="Piano Bar")
+					option(value="siren", label="Siren")
+					option(value="spacealarm", label="Space Alarm")
+					option(value="tugboat", label="Tug Boat")
+					option(value="alien", label="Alien Alarm (long)",)
+					option(value="climb", label="Climb (long)")
+					option(value="persistent", label="Persistent (long)")
+					option(value="echo", label="Pushover Echo (long)")
+					option(value="updown", label="Up Down (long)")
+					option(value="none", label="None (silent)")
 
 			section.col-sm-4.attachment
 				input.file.hidden#files(type="file", name="attachment", accept="image/*")

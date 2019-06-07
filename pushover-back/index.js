@@ -57,6 +57,7 @@ app.post("/", (req, res) => {
 	const message = req.body.message
 	const title = req.body.title
 	const url = req.body.url
+	const sound = req.body.priority
 	const file = req.body.attachment ? `uploads/${path.basename(req.body.attachment)}` : null
 	const priority = parseInt(req.body.priority)
 	
@@ -76,7 +77,7 @@ app.post("/", (req, res) => {
 		url,
 		file,
 		priority,
-		sound: "intermission",
+		sound,
 		device: "drell", // can we dynamically load device names?
 	}
 	// make dynamic? Maybe not worth it.
